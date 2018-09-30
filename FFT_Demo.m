@@ -67,32 +67,47 @@ M = fft2(outputImage);
 M = fftshift(M);
 
 Ab = abs(M);
-Ab = (Ab - min(min(Ab)))./(max(max(Ab))).*255;
+Abt = (Ab - min(min(Ab)))./(max(max(Ab))).*255;
 subplot(2, 3, 2);
-imshow(Ab),title('FFT Image', 'FontSize', fontSize) % Display the result
+imshow(Abt),title('FFT Image', 'FontSize', fontSize) % Display the result
 
 %%
-for i = (columns-maskWidth)/2 : (columns-maskWidth)/2+maskWidth
-    for j = (rows/2-100-maskWidth/2) : (rows/2-100-maskWidth/2)+maskWidth
-        M(i,j) = 255;
-    end
-end
-
-for i = (columns-maskWidth)/2 : (columns-maskWidth)/2+maskWidth
-    for j = (rows/2+100-maskWidth/2) : (rows/2+100-maskWidth/2)+maskWidth
-        M(i,j) = 255;
-    end
-end
-% subplot(2,3,4);
-% imshow(M);
-
-Ab = abs(M);
-Abt = (Ab - min(min(Ab)))./(max(max(Ab))).*255;
+% for i = (columns-maskWidth)/2 : (columns-maskWidth)/2+maskWidth
+%     for j = (rows/2-100-maskWidth/2) : (rows/2-100-maskWidth/2)+maskWidth
+%         M(i,j) = 255;
+%     end
+% end
+% 
+% for i = (columns-maskWidth)/2 : (columns-maskWidth)/2+maskWidth
+%     for j = (rows/2+100-maskWidth/2) : (rows/2+100-maskWidth/2)+maskWidth
+%         M(i,j) = 255;
+%     end
+% end
+% % subplot(2,3,4);
+% % imshow(M);
+% 
+% Ab = abs(M);
+% Abt = (Ab - min(min(Ab)))./(max(max(Ab))).*255;
+% subplot(2, 3, 3);
+% imshow(Abt),title('FFT Image Edit', 'FontSize', fontSize) % Display the result
+thresh = 0.90;
+mask = Abt > thresh;
+Abt(mask) = 0;
+M(mask) = 0;
 subplot(2, 3, 3);
 imshow(Abt),title('FFT Image Edit', 'FontSize', fontSize) % Display the result
-
 %% Reconstructed Image
-F = ifftshift(M);
+F = fftshift(M);
 f = ifft2(F);
 subplot(2, 3, 6);
 imshow(f,[]),title('reconstructed Image', 'FontSize', fontSize)
+
+%% Filter
+% % Find pixels that are brighter than the threshold.
+% mask = fabs > thresh; 
+% % Erase those from the image
+% fabs(mask) = 0;
+% % Shift back and inverse fft
+% filteredImage = ifft2(fftshift(fabs)) + mean2(I);
+% imshow(filteredImage, []);
+

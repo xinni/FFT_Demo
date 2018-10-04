@@ -72,28 +72,28 @@ subplot(2, 3, 2);
 imshow(Abt),title('FFT Image', 'FontSize', fontSize) % Display the result
 
 %%
-% for i = (columns-maskWidth)/2 : (columns-maskWidth)/2+maskWidth
-%     for j = (rows/2-100-maskWidth/2) : (rows/2-100-maskWidth/2)+maskWidth
-%         M(i,j) = 255;
-%     end
-% end
-% 
-% for i = (columns-maskWidth)/2 : (columns-maskWidth)/2+maskWidth
-%     for j = (rows/2+100-maskWidth/2) : (rows/2+100-maskWidth/2)+maskWidth
-%         M(i,j) = 255;
-%     end
-% end
-% % subplot(2,3,4);
-% % imshow(M);
-% 
-% Ab = abs(M);
-% Abt = (Ab - min(min(Ab)))./(max(max(Ab))).*255;
-% subplot(2, 3, 3);
-% imshow(Abt),title('FFT Image Edit', 'FontSize', fontSize) % Display the result
-thresh = 0.90;
-mask = Abt > thresh;
-Abt(mask) = 0;
-M(mask) = 0;
+for i = (columns-maskWidth)/2 : (columns-maskWidth)/2+maskWidth
+    for j = (rows/2-100-maskWidth/2) : (rows/2-100-maskWidth/2)+maskWidth
+        M(i,j) = 255;
+    end
+end
+
+for i = (columns-maskWidth)/2 : (columns-maskWidth)/2+maskWidth
+    for j = (rows/2+100-maskWidth/2) : (rows/2+100-maskWidth/2)+maskWidth
+        M(i,j) = 255;
+    end
+end
+% subplot(2,3,4);
+% imshow(M);
+
+Ab = abs(M);
+Abt = (Ab - min(min(Ab)))./(max(max(Ab))).*255;
+subplot(2, 3, 3);
+imshow(Abt),title('FFT Image Edit', 'FontSize', fontSize) % Display the result
+% thresh = 0.90;
+% mask = Abt > thresh;
+% Abt(mask) = 0;
+% M(mask) = 0;
 subplot(2, 3, 3);
 imshow(Abt),title('FFT Image Edit', 'FontSize', fontSize) % Display the result
 %% Reconstructed Image

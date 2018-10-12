@@ -33,7 +33,9 @@ tempImage = zeros(width,rows)*255;
 for i = 1:width
     tempImage(i,:) = t * 255;
 end
-tempImage = imrotate(tempImage, 60);
+
+slop = 60;
+tempImage = imrotate(tempImage, slop);
 %[a, b, c] = size(tempImage);
 % subplot(2, 2, 2);
 % imshow(tempImage,[]);
@@ -81,6 +83,23 @@ end
 for i = (columns-maskWidth)/2 : (columns-maskWidth)/2+maskWidth
     for j = (rows/2+100-maskWidth/2) : (rows/2+100-maskWidth/2)+maskWidth
         M(i,j) = 255;
+    end
+end
+
+sf = 200;
+center1y = int32(rows/2 - cosd(slop)*sf);
+center1x = int32(columns/2 + sind(slop)*sf);
+for i = center1y - (maskWidth/2) : center1y + (maskWidth/2)
+    for j = center1x - (maskWidth/2) : center1x + (maskWidth/2)
+        M(j,i) = 255;
+    end
+end
+
+center2y = int32(rows/2 + cosd(slop)*sf);
+center2x = int32(columns/2 - sind(slop)*sf);
+for i = center2y - (maskWidth/2) : center2y + (maskWidth/2)
+    for j = center2x - (maskWidth/2) : center2x + (maskWidth/2)
+        M(j,i) = 255;
     end
 end
 % subplot(2,3,4);

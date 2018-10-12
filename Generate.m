@@ -22,7 +22,7 @@ function varargout = Generate(varargin)
 
 % Edit the above text to modify the response to help Generate
 
-% Last Modified by GUIDE v2.5 30-Sep-2018 16:17:46
+% Last Modified by GUIDE v2.5 10-Oct-2018 22:04:18
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -127,6 +127,7 @@ end
 
 axes(handles.axes1);
 imshow(outputImage,[]);
+figure, imshow(outputImage,[]);
 
 setappdata(0,'evalue',outputImage);
 
@@ -203,7 +204,23 @@ if get(handles.radiobutton2,'value')
 end
 
 %% Remove s peaks
-% TODO
+if get(handles.radiobutton3,'value')
+    center1y = int32(rows/2 - cosd(slop)*sf);
+    center1x = int32(columns/2 + sind(slop)*sf);
+    for i = center1y - (maskWidth/2) : center1y + (maskWidth/2)
+        for j = center1x - (maskWidth/2) : center1x + (maskWidth/2)
+            M(j,i) = 255;
+        end
+    end
+
+    center2y = int32(rows/2 + cosd(slop)*sf);
+    center2x = int32(columns/2 - sind(slop)*sf);
+    for i = center2y - (maskWidth/2) : center2y + (maskWidth/2)
+        for j = center2x - (maskWidth/2) : center2x + (maskWidth/2)
+            M(j,i) = 255;
+        end
+    end
+end
 
 %% Display image
 Ab = abs(M);
@@ -211,7 +228,12 @@ Abt = (Ab - min(min(Ab)))./(max(max(Ab))).*255;
 axes(handles.axes3);
 imshow(Abt);
 
+%% Display reconstruct image
+F = fftshift(M);
+f = ifft2(F);
 
+axes(handles.axes4);
+imshow(f,[]);
 %% GUI component
 
 %Executes on button press
@@ -263,4 +285,3 @@ function edit6_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-

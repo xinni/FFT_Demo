@@ -78,10 +78,6 @@ Abt = (Ab - min(min(Ab)))./(max(max(Ab))).*255;
 % subplot(2, 3, 2);
 figure, imshow(Abt),title('FFT Image', 'FontSize', fontSize) % Display the result
 
-filename=['fImage' num2str(abc) '.jpg'];
-saveas(gcf,filename);
-close(gcf);
-
 %%
 for i = (columns-maskWidth)/2 : (columns-maskWidth)/2+maskWidth
     for j = (rows/2-100-maskWidth/2) : (rows/2-100-maskWidth/2)+maskWidth

@@ -13,15 +13,15 @@ fingerPrint=rgb2gray(fingerPrint);
 PQ = paddedsize(size(fingerPrint));
 width = 40;
 
-for i = 20 : 100
+for i = 1 : 300
     D0 = i * 2;
     H = lpfilter('ideal', PQ(1), PQ(2), D0);
     F=fft2(double(fingerPrint),size(H,1),size(H,2));
     LPFS_fingerPrint = H.*F;
     
-    D0 = D0 - width;
-    H = hpfilter('ideal', PQ(1), PQ(2), D0);
-    LPFS_fingerPrint = H.*LPFS_fingerPrint;
+%     D0 = D0 - width;
+%     H = hpfilter('ideal', PQ(1), PQ(2), D0);
+%     LPFS_fingerPrint = H.*LPFS_fingerPrint;
     
     LPF_fingerPrint=real(ifft2(LPFS_fingerPrint));
     LPF_fingerPrint=LPF_fingerPrint(1:size(fingerPrint,1), 1:size(fingerPrint,2));
@@ -34,6 +34,7 @@ for i = 20 : 100
     saveas(gcf,filename);
     close(gcf);
     
+    
 %     Fc=fftshift(F);
     Fcf=fftshift(LPFS_fingerPrint);
 
@@ -44,4 +45,5 @@ for i = 20 : 100
     filename=['fImage' num2str(i) '.jpg'];
     saveas(gcf,filename);
     close(gcf);
+
 end

@@ -147,6 +147,7 @@ Ab = (Ab - min(min(Ab)))./(max(max(Ab))).*255;
 
 axes(handles.axes2);
 imshow(Ab);
+% close(gcf);
 
 
 % --- Executes on button press in Select image.

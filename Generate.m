@@ -145,8 +145,11 @@ guidata(hObject,handles);
 Ab = abs(M);
 Ab = (Ab - min(min(Ab)))./(max(max(Ab))).*255;
 
-axes(handles.axes2);
-imshow(Ab);
+% axes(handles.axes2);
+% imshow(Ab);
+figure, imshow(Ab);
+filename=['3.jpg'];
+saveas(gcf,filename);
 % close(gcf);
 
 

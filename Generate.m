@@ -58,6 +58,9 @@ handles.output = hObject;
 % Update handles structure
 guidata(hObject, handles);
 
+set(findobj(handles.figure1),'Units','Normalized');
+set(handles.figure1,'Units','Pixels','Position',get(0,'ScreenSize'));
+
 % UIWAIT makes Generate wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
